@@ -3,6 +3,7 @@
 #import <Mitsuha/MSHBarView.h>
 #import <Mitsuha/MSHLineView.h>
 #import <Mitsuha/MSHDotView.h>
+#import <Mitsuha/MSHSiriView.h>
 
 @interface MSHConfig : NSObject
 

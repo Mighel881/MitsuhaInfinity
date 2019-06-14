@@ -49,6 +49,8 @@ void notificationCallback(CFNotificationCenterRef center, void * observer, CFStr
             self.view = [[MSHDotView alloc] initWithFrame:frame];
             [((MSHDotView*)_view) setBarSpacing:self.barSpacing];
             break;
+        case 4:
+            self.view = [[MSHSiriView alloc] initWithFrame:frame];
         default:
             self.view = [[MSHJelloView alloc] initWithFrame:frame];
     }
@@ -110,7 +112,7 @@ void notificationCallback(CFNotificationCenterRef center, void * observer, CFStr
     _disableBatterySaver = [([dict objectForKey:@"disableBatterySaver"] ?: @(NO)) boolValue];
     _enableFFT = [([dict objectForKey:@"enableFFT"] ?: @(NO)) boolValue];
     _enableAutoHide = [([dict objectForKey:@"enableAutoHide"] ?: @(YES)) boolValue];
-    
+
     if ([dict objectForKey:@"waveColor"]){
         if ([[dict objectForKey:@"waveColor"] isKindOfClass:[UIColor class]]) {
             _waveColor = [dict objectForKey:@"waveColor"];
@@ -122,7 +124,7 @@ void notificationCallback(CFNotificationCenterRef center, void * observer, CFStr
     } else {
         _waveColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     }
-    
+
     if ([dict objectForKey:@"subwaveColor"]) {
         if ([[dict objectForKey:@"subwaveColor"] isKindOfClass:[UIColor class]]) {
             _subwaveColor = [dict objectForKey:@"subwaveColor"];
@@ -134,7 +136,7 @@ void notificationCallback(CFNotificationCenterRef center, void * observer, CFStr
     } else {
         _subwaveColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     }
-    
+
     _gain = [([dict objectForKey:@"gain"] ?: @(50)) doubleValue];
     _limiter = [([dict objectForKey:@"limiter"] ?: @(0)) doubleValue];
     _numberOfPoints = [([dict objectForKey:@"numberOfPoints"] ?: @(8)) unsignedIntegerValue];
@@ -167,7 +169,7 @@ void notificationCallback(CFNotificationCenterRef center, void * observer, CFStr
     for (NSString *key in [colors allKeys]) {
         [prefs setValue:[colors objectForKey:key] forKey:key];
     }
-    
+
     for (NSString *key in [prefs allKeys]) {
         NSString *removedKey = [key stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"MSH%@", name] withString:@""];
         NSString *loweredFirstChar = [[removedKey substringWithRange:NSMakeRange(0, 1)] lowercaseString];
